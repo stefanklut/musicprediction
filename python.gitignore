@@ -106,3 +106,4 @@ venv.bak/
 # wav
 music/
 *.wav
+.wav
