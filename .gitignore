@@ -105,6 +105,7 @@ venv.bak/
 
 # csv
 .csv
+*.csv
 
 # wav
 music/
