@@ -104,10 +104,8 @@ venv.bak/
 .mypy_cache/
 
 # csv
-.csv
 *.csv
 
 # wav
 music/
 *.wav
-.wav
