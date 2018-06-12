@@ -7,39 +7,32 @@ class data:
         self.header[0] = 'id'
         self.data_file = self.data_file[1:]
         self.__split_rec_ver()
-        # self.id = self.data_file[1:,0].astype(int)
-        # self.participant = self.data_file[1:,1].astype(int)
-        # self.song = self.data_file[1:,2].astype(int)
-        # self.start_point = self.data_file[1:,3]
-        # self.recognition_time = self.data_file[1:,4].astype(float)
-        # self.is_response_correct = self.data_file[1:,5]
-        # self.verification_time = self.data_file[1:,6]
-        # self.is_return_correct = self.data_file[1:,7]
-        # self.timestamp = self.data_file[1:,8]
-        # self.playlist = self.data_file[1:,9]
-        # self.segment = self.data_file[1:,10]
-        # self.sound_cloud_id = self.data_file[1:,11].astype(int)
+        self.types = {'id': 'int', 'participant': 'int', "song": 'int', \
+            'start_point': 'str', 'recognition_time': 'float', \
+            'is_response_correct': 'bool', 'verification_time': 'str', \
+            'is_return_correct': 'str', 'timestamp': 'str', 'playlist': 'str', \
+            'segment': 'int', 'sound_cloud_id': 'int'}
 
     def __str__(self):
         return(str(self.data_file))
 
     def __split_rec_ver(self):
         self.verification = self.data_file[self.data_file[:,5] != 'NA']
+        self.verification[self.verification[:,5] == 'TRUE',5] = True
+        self.verification[self.verification[:,5] == 'FALSE',5] = False
         rec_false = self.data_file[self.data_file[:,5] == 'NA']
-        rec_false[:,5] = 'FALSE'
+        rec_false[:,5] = False
         rec_true = np.copy(self.verification)
-        rec_true[:,5] = 'TRUE'
+        rec_true[:,5] = True
         self.recognition = np.concatenate((rec_false, rec_true))
-        self.recognition[self.recognition[:,0].argsort()]
 
     def get(self, data_set, var_name):
         if var_name in self.header:
             [[var_index]] = np.where(self.header == var_name)
+            var_type = self.types[var_name]
             if data_set == 'recognition':
-                return self.recognition[:,var_index]
+                return self.recognition[:,var_index].astype(var_type)
             elif data_set == 'verification':
-                return self.verification[:,var_index]
+                return self.verification[:,var_index].astype(var_type)
         raise NameError('Invalid Name')
-
-data = data('sample_data.csv')
-print(data.get('recognition', 'id'))
+        
