@@ -7,7 +7,7 @@ class data:
         self.header[0] = 'id'
         self.data_file = self.data_file[1:]
         self.__split_rec_ver()
-        self.types = {'id': 'int', 'participant': 'int', "song": 'int', \
+        self.types = {'id': 'int', 'participant': 'int', 'song': 'int', \
             'start_point': 'str', 'recognition_time': 'float', \
             'is_response_correct': 'bool', 'verification_time': 'str', \
             'is_return_correct': 'str', 'timestamp': 'str', 'playlist': 'str', \
@@ -35,4 +35,3 @@ class data:
             elif data_set == 'verification':
                 return self.verification[:,var_index].astype(var_type)
         raise NameError('Invalid Name')
-        
