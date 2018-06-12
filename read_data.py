@@ -34,13 +34,12 @@ class data:
 
     def get(self, data_set, var_name):
         if var_name in self.header:
-            var_index = self.header.index(var_name)
+            [[var_index]] = np.where(self.header == var_name)
             if data_set == 'recognition':
-                return self.recognition[var_index]
+                return self.recognition[:,var_index]
             elif data_set == 'verification':
-                return self.verification[var_index]
-        else:
-            raise NameError('Invalid Name')
+                return self.verification[:,var_index]
+        raise NameError('Invalid Name')
 
 data = data('sample_data.csv')
-print(data.get('recognition', 'participant'))
+print(data.get('recognition', 'id'))
