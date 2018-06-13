@@ -24,12 +24,12 @@ class data:
     def __split_rec_ver(self):
         # Function splits full dataset in recognition and verification sets.
         self.verification = self.data_file[self.data_file[:, 5] != 'NA']
-        self.verification[self.verification[:, 5] == 'TRUE', 5] = True
-        self.verification[self.verification[:, 5] == 'FALSE', 5] = False
+        self.verification[self.verification[:, 5] == 'TRUE', 5] = 1
+        self.verification[self.verification[:, 5] == 'FALSE', 5] = 0
         rec_false = self.data_file[self.data_file[:, 5] == 'NA']
-        rec_false[:, 5] = False
+        rec_false[:, 5] = 0
         rec_true = np.copy(self.verification)
-        rec_true[:, 5] = True
+        rec_true[:, 5] = 1
         self.recognition = np.concatenate((rec_false, rec_true))
 
     def get(self, data_set, var_name):
