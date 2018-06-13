@@ -11,3 +11,8 @@
 - John Ashley Burgoyne (ILLC)
 
 Ye olde music catchy desu?!
+
+1. Haal data
+2. Fit data
+3. ???
+4. Profit $
