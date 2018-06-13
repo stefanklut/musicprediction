@@ -1,0 +1,198 @@
+dynamics
+- rms
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+fluctuation
+- peak
+- - PeakPosMean
+- - PeakMagMean
+- centroid
+- - Mean
+rhythm
+- tempo
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- attack
+- - time
+- - - Mean
+- - - Std
+- - - Slope
+- - - PeriodFreq
+- - - PeriodAmp
+- - - PeriodEntropy
+- - slope
+- - - Mean
+- - - Std
+- - - Slope
+- - - PeriodFreq
+- - - PeriodAmp
+- - - PeriodEntropy
+spectral
+- centroid
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- brightness
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- spread
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- skewness
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- kurtosis
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- rolloff95
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- rolloff85
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- spectentropy
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- flatness
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- roughness
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- irregularity
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- mfcc
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- dmfcc
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- ddmfcc
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+timbre
+- zerocross
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- lowenergy
+- - Mean
+- spectralflux
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+tonal
+- chromagram
+- - peak
+- - - PeakPosMean
+- - - PeakPosStd
+- - - PeakPosSlope
+- - - PeakPosPeriodFreq
+- - - PeakPosPeriodAmp
+- - - PeakPosPeriodEntropy
+- - - PeakMagMean
+- - - PeakMagStd
+- - - PeakMagSlope
+- - - PeakMagPeriodFreq
+- - - PeakMagPeriodAmp
+- - - PeakMagPeriodEntropy
+- - centroid
+- - - Mean
+- - - Std
+- - - Slope
+- - - PeriodFreq
+- - - PeriodAmp
+- - - PeriodEntropy
+- keyclarity
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- mode
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+- hcdf
+- - Mean
+- - Std
+- - Slope
+- - PeriodFreq
+- - PeriodAmp
+- - PeriodEntropy
+FileNames
+- music/147526804.wav
