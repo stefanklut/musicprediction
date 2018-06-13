@@ -1,2 +1,13 @@
 # Music Prediction
-Working for the ILLC to predict ye olde music
+
+Project by:
+- Dries Fransen
+- Geerten Rijsdijk
+- Hannah Min
+- Ko Schoemaker
+- Stefan Klut
+
+Commissioned by:
+- John Ashley Burgoyne (ILLC)
+
+Ye old music prediction 
