@@ -4,7 +4,7 @@ filter_music.py
 Reads in names of erroneous files from a file named bad_files.txt append
 moves these files from the 'music' map to an 'erroneous_music' map.
 
-''''
+'''
 from os import listdir
 import shutil
 
