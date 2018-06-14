@@ -16,7 +16,7 @@ with open('bad_files.txt', 'r') as f:
         file_list.append(line)
 f.close()
 
-# Move files to different map.
+# Move files to different folder.
 for filename in listdir('music'):
     if filename in file_list:
         shutil.move('music/'+filename, 'erroneous_music')
