@@ -17,6 +17,7 @@ with open('bad_files.txt', 'r') as f:
 f.close()
 
 # Move files to different folder.
+os.mkdir('erroneous_music)
 for filename in listdir('music'):
     if filename in file_list:
         shutil.move('music/'+filename, 'erroneous_music')
