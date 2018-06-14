@@ -1,7 +1,8 @@
 import numpy as np
 
 
-def file_connect(data_set, feature_data, participant_data_obj, noice=False):
+def file_connect(data_set, feature_data, participant_data_obj, noise=False,
+                 lower_lim=-0.1, upper_lim=0.1):
     """ Creates feature data matrix and corresponding participant answers."""
 
     responses = participant_data_obj.get(data_set, 'is_response_correct')
@@ -19,7 +20,7 @@ def file_connect(data_set, feature_data, participant_data_obj, noice=False):
             valid_song_id.append(i)
 
     feature_matrix = np.asarray(feature_matrix)
-    if noice == True:
-        feature_matrix += np.random.uniform(-0.01, 0.01, feature_matrix.shape)
+    if noise == True:
+        feature_matrix += np.random.uniform(lower_lim, upper_lim, feature_matrix.shape)
 
     return (feature_matrix, responses[valid_song_id])
