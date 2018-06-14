@@ -20,7 +20,7 @@ def file_connect(data_set, feature_data, participant_data_obj, noise=False,
             valid_song_id.append(i)
 
     feature_matrix = np.asarray(feature_matrix)
-    if noise == True:
+    if noise:
         feature_matrix += np.random.uniform(lower_lim, upper_lim, feature_matrix.shape)
 
     return (feature_matrix, responses[valid_song_id])

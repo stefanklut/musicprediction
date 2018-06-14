@@ -1,8 +1,26 @@
-from sklearn.svm import SVC, NuSVC, LinearSVC
-from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier, ExtraTreesClassifier, RandomForestClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import train_test_split
 
+
+def classify_features(func, feature_matrix, responses, test_size=0.30):
+    feature_matrix_train, feature_matrix_test, responses_train, \
+        responses_test = \
+        train_test_split(feature_matrix, responses, test_size=test_size)
+
+    classify_function = func()
+    classify_function.fit(feature_matrix_train, responses_train)
+    classify_prediction = classify_function.predict(feature_matrix_test)
+    tn, fp, fn, tp = confusion_matrix(responses_test, classify_prediction).ravel()
+
+    accuracy = (tn + tp) / (tn + fp + fn + tp)
+    precision = (tp) / (fp + tp)
+    recall = (tp) / (fn + tp)
+    f1_score = 2 * ((precision * recall) / (precision + recall))
+    specificity = (tn) / (tn + fp)
+
+    return (accuracy, precision, recall, f1_score, specificity)
+
+"""
 svc = SVC()
 svc.fit(features, responses)
 
@@ -29,3 +47,4 @@ mlp.fit(features, responses)
 
 decision_tree = DecisionTreeClassifier()
 decision_tree.fit(features, responses)
+"""
