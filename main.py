@@ -18,6 +18,6 @@ feature_matrix, responses = file_connect('recognition',
 accuracy, precision, recall, f1_score, specificity, feature_importance = \
     classify_features(RandomForestClassifier, feature_matrix, responses)
 
-names_feature_importance = [(feature_header[i], value) for i, value in feature_importance]
+names_feature_importance = [(feature_header[i], value) for i, value in reversed(feature_importance)]
 
 print(names_feature_importance)
