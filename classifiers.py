@@ -11,15 +11,17 @@ def classify_features(func, feature_matrix, responses, test_size=0.30):
     classify_function.fit(feature_matrix_train, responses_train)
     classify_prediction = classify_function.predict(feature_matrix_test)
     feature_importance = classify_function.feature_importances_
-    tn, fp, fn, tp = confusion_matrix(responses_test, classify_prediction).ravel()
+    return(measures(*confusion_matrix(responses_test, classify_prediction).ravel()), sorted(feature_importance)[20:])
 
+
+def measures(tn, fp, fn, tp):
     accuracy = (tn + tp) / (tn + fp + fn + tp)
     precision = (tp) / (fp + tp)
     recall = (tp) / (fn + tp)
     f1_score = 2 * ((precision * recall) / (precision + recall))
     specificity = (tn) / (tn + fp)
 
-    return (accuracy, precision, recall, f1_score, specificity, sorted(feature_importance)[20:])
+    return (accuracy, precision, recall, f1_score, specificity)
 
 """
 svc = SVC()
