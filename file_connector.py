@@ -1,3 +1,9 @@
+'''
+file_connector.py
+
+A great discription of the file_connector
+
+'''
 import numpy as np
 
 

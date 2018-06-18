@@ -1,3 +1,9 @@
+'''
+main.py
+
+A great discription of the main
+
+'''
 from read_data import data
 from txt_to_dict import txt_to_dict
 from file_connector import file_connect
@@ -12,7 +18,7 @@ from sklearn.tree import DecisionTreeClassifier
 feature_header, feature_dict = txt_to_dict('features.txt')
 participant_data = data('first_pass.csv')
 
-feature_matrix, responses = file_connect('recognition',
+feature_matrix, responses = file_connect('verification',
                                          feature_dict, participant_data)
 
 accuracy, precision, recall, f1_score, specificity, feature_importance = \
