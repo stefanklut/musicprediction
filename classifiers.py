@@ -10,8 +10,9 @@ def classify_features(func, feature_matrix, responses, test_size=0.30):
     classify_function = func()
     classify_function.fit(feature_matrix_train, responses_train)
     classify_prediction = classify_function.predict(feature_matrix_test)
-    feature_importance = classify_function.feature_importances_
-    return(measures(*confusion_matrix(responses_test, classify_prediction).ravel()), sorted(feature_importance)[20:])
+    feature_importance = enumerate(classify_function.feature_importances_)
+    return(*measures(*confusion_matrix(responses_test, classify_prediction).ravel()),
+           sorted(feature_importance, key=lambda x:x[1])[-20:])
 
 
 def measures(tn, fp, fn, tp):

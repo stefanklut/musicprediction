@@ -4,7 +4,8 @@ from file_connector import file_connect
 from classifiers import classify_features
 
 from sklearn.svm import SVC, NuSVC, LinearSVC
-from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier, ExtraTreesClassifier, RandomForestClassifier
+from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier, \
+                             ExtraTreesClassifier, RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
 
@@ -16,3 +17,5 @@ feature_matrix, responses = file_connect('recognition',
 
 accuracy, precision, recall, f1_score, specificity, feature_importance = \
     classify_features(RandomForestClassifier, feature_matrix, responses)
+
+print(accuracy, precision, recall, f1_score, specificity, feature_importance)
