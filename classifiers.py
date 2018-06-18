@@ -10,8 +10,10 @@ def classify_features(func, feature_matrix, responses, test_size=0.30):
     classify_function = func()
     classify_function.fit(feature_matrix_train, responses_train)
     classify_prediction = classify_function.predict(feature_matrix_test)
-    tn, fp, fn, tp = confusion_matrix(responses_test, classify_prediction).ravel()
+    return(measures(*confusion_matrix(responses_test, classify_prediction).ravel()))
 
+
+def measures(tn, fp, fn, tp):
     accuracy = (tn + tp) / (tn + fp + fn + tp)
     precision = (tp) / (fp + tp)
     recall = (tp) / (fn + tp)
