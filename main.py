@@ -14,5 +14,5 @@ participant_data = data('first_pass.csv')
 feature_matrix, responses = file_connect('recognition',
                                          feature_dict, participant_data)
 
-accuracy, precision, recall, f1_score, specificity = \
+accuracy, precision, recall, f1_score, specificity, feature_importance = \
     classify_features(RandomForestClassifier, feature_matrix, responses)
