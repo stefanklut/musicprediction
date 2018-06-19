@@ -6,9 +6,12 @@ A great discription of the classifiers
 '''
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+import numpy as np
 
 
-def classify_features(func, feature_matrix, responses, test_size=0.30, pca=FALSE):
+def classify_features(func, feature_matrix, responses, test_size=0.30, pca=False):
     features_train, features_test, responses_train, responses_test = \
         train_test_split(feature_matrix, responses, test_size=test_size)
 
@@ -19,6 +22,8 @@ def classify_features(func, feature_matrix, responses, test_size=0.30, pca=FALSE
     classify_function.fit(features_train, responses_train)
     classify_prediction = classify_function.predict(features_test)
     feature_importance = enumerate(classify_function.feature_importances_)
+    if pca:
+        feature_importance = []
     return(*measures(*confusion_matrix(responses_test, classify_prediction).ravel()),
            sorted(feature_importance, key=lambda x:x[1])[-20:])
 
@@ -42,7 +47,7 @@ def apply_pca(feat_train, feat_test):
     pca.fit(feat_train)
 
     pca_train = pca.transform(feat_train)
-    pca_test = pca.transform(feat_train)
+    pca_test = pca.transform(feat_test)
 
     return pca_train, pca_test
 
