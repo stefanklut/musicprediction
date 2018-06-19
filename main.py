@@ -14,16 +14,33 @@ from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier, \
                              ExtraTreesClassifier, RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
+import time
 
 feature_header, feature_dict = txt_to_dict('features.txt')
 participant_data = data('first_pass.csv')
 
+
 feature_matrix, responses = file_connect('verification',
-                                         feature_dict, participant_data)
+	                                         feature_dict, participant_data)
 
 accuracy, precision, recall, f1_score, specificity, feature_importance = \
     classify_features(RandomForestClassifier, feature_matrix, responses)
 
 names_feature_importance = [(feature_header[i], value) for i, value in reversed(feature_importance)]
+important_features_set = {feature_header[i] for i, _ in reversed(feature_importance)}
 
-print(names_feature_importance)
+
+for _ in range(100):
+	start = time.time()
+	feature_matrix, responses = file_connect('verification',
+	                                         feature_dict, participant_data)
+
+	accuracy, precision, recall, f1_score, specificity, feature_importance = \
+	    classify_features(RandomForestClassifier, feature_matrix, responses)
+
+	# names_feature_importance = [(feature_header[i], value) for i, value in reversed(feature_importance)]
+	important_features_set = important_features_set&{feature_header[i] for i, _ in reversed(feature_importance)}
+	print(time.time()-start)
+
+print(important_features_set)
+print(len(important_features_set))
