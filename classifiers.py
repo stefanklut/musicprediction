@@ -11,7 +11,7 @@ from sklearn.decomposition import PCA
 import numpy as np
 
 
-def classify_features(func, feature_matrix, responses, test_size=0.30, pca=False):
+def classify_features(func, feature_matrix, responses, amount_of_features, test_size=0.30, pca=False):
     features_train, features_test, responses_train, responses_test = \
         train_test_split(feature_matrix, responses, test_size=test_size)
 
@@ -25,7 +25,7 @@ def classify_features(func, feature_matrix, responses, test_size=0.30, pca=False
     if pca:
         feature_importance = []
     return(*measures(*confusion_matrix(responses_test, classify_prediction).ravel()),
-           sorted(feature_importance, key=lambda x:x[1])[-20:])
+           sorted(feature_importance, key=lambda x:x[1])[-amount_of_features:])
 
 def measures(tn, fp, fn, tp):
     accuracy = (tn + tp) / (tn + fp + fn + tp)
