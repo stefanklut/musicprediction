@@ -1,6 +1,12 @@
+'''
+txt_to_dict.py
+
+A great discription of the txt_to_dict
+
+'''
 import numpy as np
 from sklearn.preprocessing import normalize
-        
+
 def txt_to_dict(filename):
     header = ''
 #     Get the names of the features we will be extracting
