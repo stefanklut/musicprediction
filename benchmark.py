@@ -15,7 +15,7 @@ def benchmark(data_set, omit, threshold=0.5):
     # np.set_printoptions(threshold=np.nan)
     start = time.time()
     data1 = data('first_pass.csv')
-    print('read data:', time.time()-start)
+    print('read data:', time.time() - start)
 
     responses = data1.get(data_set, 'is_response_correct')
     ids = data1.get(data_set, 'sound_cloud_id')
@@ -24,11 +24,11 @@ def benchmark(data_set, omit, threshold=0.5):
     combined_array = np.dstack((ids, responses))[0]
 
     combined_array = combined_array[combined_array[:,0].argsort()]
-    print(combined_array)
-    
+
     start = time.time()
-    combined_array = np.array([combo for combo in combined_array if combo[0] not in omit])
-    print('remove faulty files:', time.time()-start)
+    combined_array = \
+        np.array([combo for combo in combined_array if combo[0] not in omit])
+    print('remove faulty files:', time.time() - start)
 
     ids = combined_array[:, 0]
     responses = combined_array[:, 1]
@@ -42,18 +42,23 @@ def benchmark(data_set, omit, threshold=0.5):
 
     start = time.time()
     # Create different matrices to test evaluation scores with
-    threshold_vector = np.greater(np.array([id_dict[key] for key in ids]), threshold)
-    print('create threshold vector:', time.time()-start)
+    threshold_vector = \
+        np.greater(np.array([id_dict[key] for key in ids]), threshold)
+    print('create threshold vector:', time.time() - start)
 
     true_vector = np.ones(len(responses))
     false_vector = np.zeros(len(responses))
-    rand_vector = np.random.randint(2, size=len(responses))
+    rand_vector = np.random.randint(2, size = len(responses))
 
     # Output evaluation scores
-    print('TRUE: ', *measures(*confusion_matrix(responses, true_vector).ravel()))
-    print('FALSE: ', *measures(*confusion_matrix(responses, false_vector).ravel()))
-    print('RANDOM: ', *measures(*confusion_matrix(responses, rand_vector).ravel()))
-    print('THRESHOLD: ', *measures(*confusion_matrix(responses, threshold_vector).ravel()))
+    print('TRUE: ', \
+        *measures(*confusion_matrix(responses, true_vector).ravel()))
+    print('FALSE: ', \
+        *measures(*confusion_matrix(responses, false_vector).ravel()))
+    print('RANDOM: ', \
+        *measures(*confusion_matrix(responses, rand_vector).ravel()))
+    print('THRESHOLD: ',\
+        *measures(*confusion_matrix(responses, threshold_vector).ravel()))
 
 bad_files = []
 with open('bad_files.txt', 'r') as f:
@@ -61,4 +66,4 @@ with open('bad_files.txt', 'r') as f:
         line = int(line.strip('\n')[:-4])
         bad_files.append(line)
 
-benchmark('recognition', bad_files)
+benchmark('recognition', bad_files, threshold = 0.5)
