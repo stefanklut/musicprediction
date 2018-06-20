@@ -46,13 +46,13 @@ print('taking off...')
 start = time.time()
 
 important_features_set = []
-aantal_paarden = 5
-aantal_threads = 3
+n_loops = 5
+n_threads = 3
 
-for _ in range(aantal_paarden):
+for _ in range(n_loops):
 	thread_list = []
 	start1 = time.time()
-	for i in range(aantal_threads):
+	for i in range(n_threads):
 		thread_list.append(Thread(target=classification, \
 							args=('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10)))
 		# t2 = Thread(target=classification, \
@@ -67,19 +67,23 @@ for _ in range(aantal_paarden):
 		t.join()
 	# t2.join()
 	# t3.join()
-	print(aantal_threads, 'threads finished in', '%.3f'%(time.time()-start1), 'seconds')
+	print(n_threads, 'threads finished in', '%.3f'%(time.time()-start1), 'seconds')
 
 t = time.time()-start
 print('\ntotal time:', '%.3f'%t)
-print('average time:', '%.3f'%(t/(aantal_paarden*aantal_threads)), '\n')
+print('average time:', '%.3f'%(t/(n_loops*n_threads)), '\n')
 
 start = time.time()
 classification('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10)
 t1 = time.time()-start
 print('no thread time:', '%.3f'%t1, '\n')
-print('total approximate time save:', (t1*aantal_paarden*aantal_threads-t), 'seconds\n\n')
+print('total approximate time save:', (t1*n_loops*n_threads-t), 'seconds\n\n')
 
 important_features_set = np.array([item for sublist in important_features_set for item in sublist])
 feats, counts = np.unique(important_features_set, return_counts=True)
-print(dict(zip(feats, counts)))
+zipped_list = list(zip(feats, counts))
+zipped_list.sort(key=lambda x: x[1], reverse = True)
+print(zipped_list)
+
+
 # print(len(important_features_set))
