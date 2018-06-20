@@ -17,9 +17,10 @@ from sklearn.tree import DecisionTreeClassifier
 import time
 from multiprocessing import Process, Manager
 from threading import Thread
+import numpy as np
 
 feature_header, feature_dict = txt_to_dict('features.txt')
-participant_data = data('first_pass.csv')
+participant_data = data('tweedejaarsproject.csv')
 
 
 feature_matrix, responses = file_connect('recognition', feature_dict, participant_data)
@@ -30,7 +31,7 @@ feature_matrix, responses = file_connect('recognition', feature_dict, participan
 # names_feature_importance = [(feature_header[i], value) for i, value in reversed(feature_importance)]
 # important_features_set = [feature_header[i] for i, _ in reversed(feature_importance)]
 
-def paardenstront(connect_args1, connect_args2, connect_args3, classify_args1, classify_args2, classify_args3, classify_args4):
+def classification(connect_args1, connect_args2, connect_args3, classify_args1, classify_args2, classify_args3, classify_args4):
 	# start = time.time()
 	# feature_matrix, responses = file_connect(connect_args1, connect_args2, connect_args3)
 
@@ -45,33 +46,40 @@ print('taking off...')
 start = time.time()
 
 important_features_set = []
-aantal_paarden = 3
+aantal_paarden = 5
+aantal_threads = 3
+
 for _ in range(aantal_paarden):
+	thread_list = []
 	start1 = time.time()
-	t1 = Thread(target=paardenstront, \
-				args=('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10))
-	t2 = Thread(target=paardenstront, \
-				args=('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10))
-	t3 = Thread(target=paardenstront, \
-				args=('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10))
-	t1.start()
-	t2.start()
-	t3.start()
-	t1.join()
-	t2.join()
-	t3.join()
-	print('3 threads finished in', '%.3f'%(time.time()-start1), 'seconds')
+	for i in range(aantal_threads):
+		thread_list.append(Thread(target=classification, \
+							args=('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10)))
+		# t2 = Thread(target=classification, \
+		# 			args=('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10))
+		# t3 = Thread(target=classification, \
+		# 			args=('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10))
+	for t in thread_list:
+		t.start()
+		# t2.start()
+		# t3.start()
+	for t in thread_list:
+		t.join()
+	# t2.join()
+	# t3.join()
+	print(aantal_threads, 'threads finished in', '%.3f'%(time.time()-start1), 'seconds')
 
 t = time.time()-start
 print('\ntotal time:', '%.3f'%t)
-print('average time:', '%.3f'%(t/(aantal_paarden*3)), '\n')
+print('average time:', '%.3f'%(t/(aantal_paarden*aantal_threads)), '\n')
 
 start = time.time()
-paardenstront('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10)
+classification('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10)
 t1 = time.time()-start
 print('no thread time:', '%.3f'%t1, '\n')
-print('total approximate time save:', (t1*aantal_paarden*3-t), 'seconds\n\n')
+print('total approximate time save:', (t1*aantal_paarden*aantal_threads-t), 'seconds\n\n')
 
-important_features_set = set([item for sublist in important_features_set for item in sublist])
-print(important_features_set)
-print(len(important_features_set))
+important_features_set = np.array([item for sublist in important_features_set for item in sublist])
+feats, counts = np.unique(important_features_set, return_counts=True)
+print(dict(zip(feats, counts)))
+# print(len(important_features_set))

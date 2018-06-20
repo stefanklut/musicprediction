@@ -1,12 +1,12 @@
-dynamics
+dynamics -> volume
 - rms
 - - Mean
 - - Std
 - - Slope
-- - PeriodFreq
-- - PeriodAmp
-- - PeriodEntropy
-fluctuation
+- - PeriodFreq -> space between loudness peaks
+- - PeriodAmp -> size of peaks
+- - PeriodEntropy -> irregularity of peaks
+fluctuation	
 - peak
 - - PeakPosMean
 - - PeakMagMean
@@ -20,11 +20,11 @@ rhythm
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- attack
+- attack -> amount of notes per beat
 - - time
 - - - Mean
 - - - Std
-- - - Slope
+- - - Slope -> increase/decrease in attack
 - - - PeriodFreq
 - - - PeriodAmp
 - - - PeriodEntropy
@@ -35,29 +35,29 @@ rhythm
 - - - PeriodFreq
 - - - PeriodAmp
 - - - PeriodEntropy
-spectral
-- centroid
+spectral -> timbre
+- centroid -> average frequency of the overall sound
 - - Mean
 - - Std
 - - Slope
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- brightness
+- brightness 
 - - Mean
 - - Std
 - - Slope
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- spread
+- spread -> amount of frequencies
 - - Mean
 - - Std
 - - Slope
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- skewness
+- skewness -> inverse brightness
 - - Mean
 - - Std
 - - Slope
@@ -71,14 +71,14 @@ spectral
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- rolloff95
+- rolloff95 -> inverse brightness
 - - Mean
 - - Std
 - - Slope
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- rolloff85
+- rolloff85 -> inverse brightness
 - - Mean
 - - Std
 - - Slope
@@ -92,7 +92,7 @@ spectral
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- flatness
+- flatness -> closeness to maximum spread
 - - Mean
 - - Std
 - - Slope
@@ -113,7 +113,7 @@ spectral
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- mfcc
+- mfcc -> 
 - - Mean
 - - Std
 - - Slope
@@ -135,7 +135,7 @@ spectral
 - - PeriodAmp
 - - PeriodEntropy
 timbre
-- zerocross
+- zerocross -> pitch-ish
 - - Mean
 - - Std
 - - Slope
@@ -151,9 +151,9 @@ timbre
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-tonal
+tonal -> pitch
 - chromagram
-- - peak
+- - peak -> most important pitch
 - - - PeakPosMean
 - - - PeakPosStd
 - - - PeakPosSlope
@@ -166,28 +166,28 @@ tonal
 - - - PeakMagPeriodFreq
 - - - PeakMagPeriodAmp
 - - - PeakMagPeriodEntropy
-- - centroid
+- - centroid -> average pitch
 - - - Mean
 - - - Std
 - - - Slope
 - - - PeriodFreq
 - - - PeriodAmp
 - - - PeriodEntropy
-- keyclarity
+- keyclarity -> very clearly in a certain key
 - - Mean
 - - Std
 - - Slope
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- mode
+- mode -> major/minor
 - - Mean
 - - Std
 - - Slope
 - - PeriodFreq
 - - PeriodAmp
 - - PeriodEntropy
-- hcdf
+- hcdf -> harmony changes
 - - Mean
 - - Std
 - - Slope
