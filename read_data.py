@@ -16,10 +16,9 @@ class data:
     def __init__(self, filename, dl=';'):
         self.data_file = np.genfromtxt(filename, delimiter=dl, dtype=str)
         self.header = self.data_file[0]
-        self.header[0] = 'id'
         self.data_file = self.data_file[1:]
         self.__split_rec_ver()
-        self.types = {'id': 'int', 'participant': 'int', 'song': 'int',
+        self.types = {'participant': 'int', 'song': 'int',
                       'start_point': 'str', 'recognition_time': 'float',
                       'is_response_correct': 'bool', 'verification_time': 'str',
                       'is_return_correct': 'str', 'timestamp': 'str',
@@ -28,13 +27,13 @@ class data:
 
     def __split_rec_ver(self):
         # Function splits full dataset in recognition and verification sets.
-        self.verification = self.data_file[self.data_file[:, 5] != 'NA']
-        self.verification[self.verification[:, 5] == 'TRUE', 5] = 1
-        self.verification[self.verification[:, 5] == 'FALSE', 5] = 0
-        rec_false = self.data_file[self.data_file[:, 5] == 'NA']
-        rec_false[:, 5] = 0
+        self.verification = self.data_file[self.data_file[:, 4] != 'NA']
+        self.verification[self.verification[:, 4] == 'TRUE', 4] = 1
+        self.verification[self.verification[:, 4] == 'FALSE', 4] = 0
+        rec_false = self.data_file[self.data_file[:, 4] == 'NA']
+        rec_false[:, 4] = 0
         rec_true = np.copy(self.verification)
-        rec_true[:, 5] = 1
+        rec_true[:, 4] = 1
         self.recognition = np.concatenate((rec_false, rec_true))
 
     def get(self, data_set, var_name):
