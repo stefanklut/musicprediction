@@ -5,9 +5,9 @@ find the benchmark (highest possible accuracy, precision, recall, F1-score
 and specificity) for this classification task.
 
 Input:
-    data1:
+    participant_data:
         Data object created by read_data.py
-    data_set:
+    classification_type:
         'recognition' or 'verification'
     threshold:
         value that indicates whether True or False is chosen, when the
@@ -28,12 +28,12 @@ from sklearn.metrics import confusion_matrix
 from classifiers import measures
 import time
 
-def benchmark(p_data, data_set, threshold=0.5):
+def benchmark(participant_data, classification_type, threshold=0.5):
 
     start = time.time()
 
-    responses = data1.get(data_set, 'is_response_correct')
-    ids = data1.get(data_set, 'sound_cloud_id')
+    responses = participant_data.get(classification_type, 'is_response_correct')
+    ids = participant_data.get(classification_type, 'sound_cloud_id')
 
     combined_array = np.dstack((ids, responses))[0]
 

@@ -19,7 +19,7 @@ from multiprocessing import Process, Manager
 from threading import Thread
 import numpy as np
 
-feature_header, feature_dict = txt_to_dict('features.txt')
+feature_header, feature_dict = music_feature_dict('features.txt')
 participant_data = data('tweedejaarsproject.csv')
 
 

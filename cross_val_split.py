@@ -21,7 +21,7 @@ from collections import Counter
 from read_data import *
 import random
 
-def create_buckets(response_data, classification_type, n_buckets):
+def create_split(response_data, classification_type, n_buckets):
 
     ids = response_data.get(classification_type, 'sound_cloud_id')
 
@@ -47,4 +47,4 @@ def create_buckets(response_data, classification_type, n_buckets):
     return(bucket_ids)
 if __name__ == '__main__':
     response_data = data('tweedejaarsproject.csv')
-    create_buckets(response_data, 'recognition', 10)
+    create_split(response_data, 'recognition', 10)
