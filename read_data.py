@@ -14,9 +14,15 @@ class data:
     data. Takes filename as argument."""
 
     def __init__(self, filename, dl=';'):
+        bad_files = []
+        with open('bad_files.txt', 'r') as f:
+            for line in f:
+                line = int(line.strip('\n')[:-4])
+                bad_files.append(line)
         self.data_file = np.genfromtxt(filename, delimiter=dl, dtype=str)
         self.header = self.data_file[0]
         self.data_file = self.data_file[1:]
+        self.data_file = np.array([line for line in self.data_file if int(line[-1]) not in bad_files])
         self.__split_rec_ver()
         self.types = {'participant': 'int', 'song': 'int',
                       'start_point': 'str', 'recognition_time': 'float',
