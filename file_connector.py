@@ -5,23 +5,28 @@ A great discription of the file_connector
 
 '''
 import numpy as np
-from read_data import data
-from txt_to_dict import txt_to_dict
 
-def connect(song_ids, data_set, feature_data, participant_data_obj):
+
+def file_connect(data_set, feature_data, participant_data_obj, noise=False,
+                 lower_lim=-0.1, upper_lim=0.1):
+    """ Creates feature data matrix and corresponding participant answers."""
+
     responses = participant_data_obj.get(data_set, 'is_response_correct')
     song_id = participant_data_obj.get(data_set, 'sound_cloud_id')
-    id_responses = zip(song_id, responses)
 
-    return_list = []
-    for song_id_array in array_list:
-        feature_array = np.array([])
-        for song_id in song_id_array:
-            feature_array = 
+    feature_length = len(list(feature_data.values())[0])
+    feature_data_union = list(set(song_id) & set(feature_data.keys()))
 
+    feature_matrix = []
+    valid_song_id = []
 
-feature_header, feature_dict = txt_to_dict('features.txt')
-participant_data = data('tweedejaarsproject.csv')
-print(connect(np.array([147526948, 147526955], [147526959, 147527019, 147527022]), 'recognition', feature_dict, participant_data))
+    for i, key in enumerate(song_id):
+        if key in feature_data_union:
+            feature_matrix.append(feature_data[key])
+            valid_song_id.append(i)
 
+    feature_matrix = np.asarray(feature_matrix)
+    if noise:
+        feature_matrix += np.random.uniform(lower_lim, upper_lim, feature_matrix.shape)
 
+    return (feature_matrix, responses[valid_song_id])
