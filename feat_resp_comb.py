@@ -7,7 +7,7 @@ A great discription of the file_connector
 import numpy as np
 
 
-def file_connect(classification_type, response_data, participant_data_obj, noise=False,
+def feat_resp_comb(classification_type, response_data, participant_data_obj, noise=False,
                  lower_lim=-0.1, upper_lim=0.1):
     """ Creates feature data matrix and corresponding participant answers."""
 
