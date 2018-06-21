@@ -11,12 +11,12 @@ from sklearn.decomposition import PCA
 import numpy as np
 
 
-def classify_features(func, train_set, test_set, amount_of_features, pca=False):
+def classify_features(func, train_set, test_set, amount_of_features):
 
     responses_train = train_set[:, -1]
-    features_train = np.delete(array, -1, axis=1)
+    features_train = np.delete(train_set, -1, axis=1)
     responses_test = test_set[:, -1]
-    features_test = np.delete(array, -1, axis=1)
+    features_test = np.delete(test_set, -1, axis=1)
 
     classify_function = func()
     classify_function.fit(features_train, responses_train)
@@ -35,14 +35,14 @@ def measures(tn, fp, fn, tp):
 
     return (accuracy, precision, recall, f1_score, specificity)
 
-def apply_pca(feat_train, feat_test):
+def apply_pca(feat_train, feat_test, pca_percentage=.95):
     scaler = StandardScaler()
     scaler.fit(feat_train)
 
     feat_train = scaler.transform(feat_train)
     feat_test = scaler.transform(feat_test)
 
-    pca = PCA(.95)
+    pca = PCA(pca_percentage)
     pca.fit(feat_train)
 
     pca_train = pca.transform(feat_train)
