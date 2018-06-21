@@ -14,7 +14,7 @@ def benchmark(data_set, omit, threshold=0.5):
 
     # np.set_printoptions(threshold=np.nan)
     start = time.time()
-    data1 = data('first_pass.csv')
+    data1 = data('tweedejaarsproject.csv')
     print('read data:', time.time() - start)
 
     responses = data1.get(data_set, 'is_response_correct')

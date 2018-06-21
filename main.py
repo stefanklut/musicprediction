@@ -46,8 +46,8 @@ print('taking off...')
 start = time.time()
 
 important_features_set = []
-n_loops = 5
-n_threads = 3
+n_loops = 1
+n_threads = 2
 
 for _ in range(n_loops):
 	thread_list = []
@@ -67,7 +67,7 @@ for _ in range(n_loops):
 		t.join()
 	# t2.join()
 	# t3.join()
-	print(n_threads, 'threads finished in', '%.3f'%(time.time()-start1), 'seconds')
+	print(n_threads, 'thread' + ('s' if n_threads>1 else '') + ' finished in', '%.3f'%(time.time()-start1), 'seconds')
 
 t = time.time()-start
 print('\ntotal time:', '%.3f'%t)
@@ -77,7 +77,7 @@ start = time.time()
 classification('recognition', feature_dict, participant_data, RandomForestClassifier, feature_matrix, responses, 10)
 t1 = time.time()-start
 print('no thread time:', '%.3f'%t1, '\n')
-print('total approximate time save:', (t1*n_loops*n_threads-t), 'seconds\n\n')
+print('total approximate time save:', '%.3f'%(t1*n_loops*n_threads-t), 'seconds\n\n')
 
 important_features_set = np.array([item for sublist in important_features_set for item in sublist])
 feats, counts = np.unique(important_features_set, return_counts=True)
