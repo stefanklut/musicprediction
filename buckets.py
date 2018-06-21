@@ -4,6 +4,17 @@ buckets.py
 creates (n_buckets) buckets of roughly equal size, dividing data into sets where
 two sets never share a song_id.
 
+input:
+    part_data:
+        Data object created by read_data.py
+    data_set:
+        'recognition' or 'verification'
+    n_buckets:
+        number of buckets the data needs to be divided over
+
+returns:
+    a list of n_buckets arrays, each containing a number of song_ids
+
 '''
 import numpy as np
 from collections import Counter
@@ -37,5 +48,5 @@ def create_buckets(part_data, data_set, n_buckets):
 
     return(bucket_ids)
 
-# part_data = data('tweedejaarsproject.csv')
-# create_buckets(part_data, 'recognition', 10)
+part_data = data('tweedejaarsproject.csv')
+create_buckets(part_data, 'recognition', 10)
