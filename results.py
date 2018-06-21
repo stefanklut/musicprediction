@@ -36,18 +36,26 @@ def data_processing(matlab_features, human_data):
     return feature_header, recognition_features, recognition_responses, \
             verification_features, verification_responses
 
-def evaluation(feature_matrix, responses, classifiers_list, pca=False):
+def evaluation(folds, classifiers_list):
+
     measures = []
     for classifier in classifiers_list:
         accuracy, precision, recall, f1_score, specificity, feature_importance = \
         classify_features(classifier, feature_matrix, responses, pca=pca)
         measures.append([accuracy, precision, recall, f1_score, specificity])
-    return np.array(measures)
+
+    with open('recognition_results.csv', 'w', newline='') as csvfile:
+        # print benchmark recognition
+        # print number of folds
+    with open('recognition_results.csv', 'w', newline=' ') as csvfile:
+        # print benchmark verification
+        # print number of folds
+    return True
 
 
 feature_header, recognition_features, recognition_responses, \
 verification_features, verification_responses = \
-data_processing('features.txt', 'first_pass.csv')
+data_processing('features.txt', 'tweedejaarsproject.csv')
 
 print("RECOGNITION TASK")
 print(measures_list)
