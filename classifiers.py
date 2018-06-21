@@ -26,7 +26,7 @@ def classify_features(func, train_set, test_set, amount_of_features, pca=False):
     return(*measures(*confusion_matrix(responses_test, classify_prediction).ravel()),
            feature_importance)
 
-def measures(tn, fp, fn, tp)
+def measures(tn, fp, fn, tp):
     accuracy = (tn + tp) / (tn + fp + fn + tp)
     precision = (tp) / (fp + tp)
     recall = (tp) / (fn + tp)
