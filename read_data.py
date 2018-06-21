@@ -1,7 +1,7 @@
 '''
 read_data.py
 
-A great discription of the read_data
+Implements data class that saves participant data.
 '''
 import numpy as np
 
@@ -14,6 +14,7 @@ class data:
     data. Takes filename as argument."""
 
     def __init__(self, filename, dl=';'):
+        # Remove files of which features cannot be extracted
         bad_files = []
         with open('bad_files.txt', 'r') as f:
             for line in f:
