@@ -33,9 +33,4 @@ def create_buckets(part_data, data_set, n_buckets):
         bucket_ids[lowest_index] = \
             np.append(bucket_ids[lowest_index], np.array([song_id]))
 
-    print(bucket_values)
-
     return(bucket_ids)
-
-# part_data = data('tweedejaarsproject.csv')
-# create_buckets(part_data, 'recognition', 10)

@@ -35,7 +35,6 @@ def benchmark(p_data, data_set, threshold=0.5):
     responses = data1.get(data_set, 'is_response_correct')
     ids = data1.get(data_set, 'sound_cloud_id')
 
-    # combined_array = np.array(list(zip(ids, responses)))
     combined_array = np.dstack((ids, responses))[0]
 
     combined_array = combined_array[combined_array[:,0].argsort()]
@@ -73,7 +72,3 @@ def benchmark(p_data, data_set, threshold=0.5):
     results = np.array([true_results, false_results, random_results, threshold_results])
 
     return results
-
-data1 = data('tweedejaarsproject.csv')
-
-print(benchmark(data1, 'recognition', threshold = 0.5))

@@ -11,8 +11,7 @@ from sklearn.decomposition import PCA
 import numpy as np
 
 
-def classify_features(func, train_set, test_set, amount_of_features):
-
+def classify_features(func, train_set, test_set):
     responses_train = train_set[:, -1]
     features_train = np.delete(train_set, -1, axis=1)
     responses_test = test_set[:, -1]
@@ -51,32 +50,3 @@ def apply_pca(feat_train, feat_test, pca_percentage=.95):
     components = len(pca_train[1])
 
     return pca_train, pca_test, components
-
-"""
-svc = SVC()
-svc.fit(features, responses)
-
-nusvc = NuSVC()
-nusvc.fit(features, responses)
-
-linearsvc = LinearSVC()
-linearsvc.fit(features, responses)
-
-ada_boost = AdaBoostClassifier()
-ada_boost.fit(features, responses)
-
-gradient_boost = GradientBoostingClassifier()
-gradient_boost.fit(features, responses)
-
-extra_tree = ExtraTreesClassifier()
-extra_tree.fit(features, responses)
-
-random_forest = RandomForestClassifier()
-random_forest.fit(features, responses)
-
-mlp = MLPClassifier()
-mlp.fit(features, responses)
-
-decision_tree = DecisionTreeClassifier()
-decision_tree.fit(features, responses)
-"""
