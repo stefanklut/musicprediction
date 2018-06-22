@@ -20,7 +20,7 @@ from threading import Thread
 import numpy as np
 
 feature_header, feature_dict = music_feature_dict('features.txt')
-participant_data = data('tweedejaarsproject.csv')
+participant_data = response_data('tweedejaarsproject.csv')
 
 
 feature_matrix, responses = file_connect('recognition', feature_dict, participant_data)
