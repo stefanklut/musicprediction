@@ -13,17 +13,15 @@ class data:
     function to extract single columns from either recognition or verification
     data. Takes filename as argument."""
 
-    def __init__(self, filename, dl=';'):
-        # Remove files of which features cannot be extracted
-        bad_files = []
-        with open('bad_files.txt', 'r') as f:
-            for line in f:
-                line = int(line.strip('\n')[:-4])
-                bad_files.append(line)
+    def __init__(self, filename, good_file_ids, dl=';'):
         self.data_file = np.genfromtxt(filename, delimiter=dl, dtype=str)
         self.header = self.data_file[0]
         self.data_file = self.data_file[1:]
-        self.data_file = np.array([line for line in self.data_file if int(line[-1]) not in bad_files])
+        print(len(self.data_file))
+        # Remove files of which features cannot be extracted
+        self.data_file = np.array([line for line in self.data_file \
+                                    if int(line[-1]) in good_file_ids])
+        print(len(self.data_file))
         self.__split_rec_ver()
         self.types = {'participant': 'int', 'song': 'int',
                       'start_point': 'str', 'recognition_time': 'float',
@@ -56,3 +54,9 @@ class data:
 
     def __str__(self):
         return(str(self.data_file))
+
+if __name__ == '__main__':
+    from music_feature_dict import *
+
+    h,m = music_feature_dict('music_features.txt')
+    d = data('tweedejaarsproject.csv', m.keys())
