@@ -11,26 +11,27 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 def cross_val(folds, pca=false):
-    measures_list = ['Accuracy', 'Precision', 'Recall', 'f1_score', 'Specificity']
-
-    # Cross validation loop
     classifiers_list = [RandomForestClassifier, DecisionTreeClassifier, \
                         GradientBoostingClassifier, AdaBoostClassifier, \
                         ExtraTreesClassifier]
+
     for classifier in classifiers_list:
-        measures = []
-        importance = []
+        mean_eval = []
+        std_eval = []
+
         for index, group in enumerate(groups):
             test_set = group
             train_set = groups[0:index] + groups[index+1:len(groups)]
             train_set = np.vstack(train_set)
+
             a, p, r, f1, s, importance = train(classifier, train_set, test_set, pca=pca)
             measures.append([a, p, r, f1, s])
             importance.append([importance])
-        avg_measures = np.mean(measures, axis=1)
-        avg_importance = np.mean(importance, axis=1)
-        std_importance = np.std(importance, axis=1)
-        ind = reversed(np.argsort(avg_importance))[:10]
+
+        means = np.mean(measures, axis=1) + np.mean(importance, axis=1)
+        stds = np.std(measures, axis=1) + np.std(importance, axis=1)
+        mean_eval.append(means)
+        std_eval.append(stds)    
     return mean_eval, std_eval
 
 def train(func, train_set, test_set, pca=pca):
