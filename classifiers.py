@@ -25,8 +25,8 @@ def cross_val(folds, pca=False):
             train_set = np.vstack(train_set)
 
             a, p, r, f1, s, importance = train(classifier, train_set, test_set, pca=pca)
-            measures.append([a, p, r, f1, s])
-            importance.append([importance])
+            measures.append([a, p, r, f1, s]) #???????????
+            importance.append([importance]) #??????????
 
         means = np.hstack((np.mean(measures, axis=1),  np.mean(importance, axis=1)))
         stds = np.hstack((np.std(measures, axis=1), np.std(importance, axis=1)))
