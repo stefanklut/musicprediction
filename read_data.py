@@ -6,7 +6,7 @@ Implements data class that saves participant data.
 import numpy as np
 
 
-class data:
+class response_data:
     """Can convert the CSV file containing responsedata from participants to
     usable python data. The class contains a full data array and two datasets
     with the recognition task data and verification task data. Class contains

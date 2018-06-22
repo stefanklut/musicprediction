@@ -46,5 +46,5 @@ def create_split(response_data, classification_type, n_buckets):
 
     return(bucket_ids)
 if __name__ == '__main__':
-    response_data = data('tweedejaarsproject.csv')
+    response_data = response_data('tweedejaarsproject.csv')
     create_split(response_data, 'recognition', 10)
