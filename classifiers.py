@@ -4,18 +4,44 @@ classifiers.py
 A great discription of the classifiers
 
 '''
+import numpy as np
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
-import numpy as np
 
+def cross_val(folds, pca=false):
+    measures_list = ['Accuracy', 'Precision', 'Recall', 'f1_score', 'Specificity']
 
-def classify_features(func, train_set, test_set):
+    # Cross validation loop
+    classifiers_list = [RandomForestClassifier, DecisionTreeClassifier, \
+                        GradientBoostingClassifier, AdaBoostClassifier, \
+                        ExtraTreesClassifier]
+    for classifier in classifiers_list:
+        measures = []
+        importance = []
+        for index, group in enumerate(groups):
+            test_set = group
+            train_set = groups[0:index] + groups[index+1:len(groups)]
+            train_set = np.vstack(train_set)
+            a, p, r, f1, s, importance = train(classifier, train_set, test_set, pca=pca)
+            measures.append([a, p, r, f1, s])
+            importance.append([importance])
+        avg_measures = np.mean(measures, axis=1)
+        avg_importance = np.mean(importance, axis=1)
+        std_importance = np.std(importance, axis=1)
+        ind = reversed(np.argsort(avg_importance))[:10]
+    return mean_eval, std_eval
+
+def train(func, train_set, test_set, pca=pca):
     responses_train = train_set[:, -1]
     features_train = np.delete(train_set, -1, axis=1)
     responses_test = test_set[:, -1]
     features_test = np.delete(test_set, -1, axis=1)
+
+    # apply PCA
+    if pca:
+        features_train, features_test = apply_pca(features_train, features_test)
 
     classify_function = func()
     classify_function.fit(features_train, responses_train)
@@ -47,6 +73,4 @@ def apply_pca(feat_train, feat_test, pca_percentage=.95):
     pca_train = pca.transform(feat_train)
     pca_test = pca.transform(feat_test)
 
-    components = len(pca_train[1])
-
-    return pca_train, pca_test, components
+    return pca_train, pca_test
