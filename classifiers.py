@@ -32,7 +32,7 @@ def cross_val(folds, pca=False):
         stds = np.hstack((np.std(measures, axis=1), np.std(importance, axis=1)))
         mean_eval.append(means)
         std_eval.append(stds)
-    return mean_eval, std_eval
+    return np.array(mean_eval), np.array(std_eval)
 
 def train(func, train_set, test_set, pca):
     responses_train = train_set[:, -1]
