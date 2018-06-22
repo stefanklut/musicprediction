@@ -17,11 +17,9 @@ class response_data:
         self.data_file = np.genfromtxt(filename, delimiter=dl, dtype=str)
         self.header = self.data_file[0]
         self.data_file = self.data_file[1:]
-        print(len(self.data_file))
         # Remove files of which features cannot be extracted
         self.data_file = np.array([line for line in self.data_file \
                                     if int(line[-1]) in good_file_ids])
-        print(len(self.data_file))
         self.__split_rec_ver()
         self.types = {'participant': 'int', 'song': 'int',
                       'start_point': 'str', 'recognition_time': 'float',
@@ -59,4 +57,4 @@ if __name__ == '__main__':
     from music_feature_dict import *
 
     h,m = music_feature_dict('music_features.txt')
-    d = data('tweedejaarsproject.csv', m.keys())
+    d = response_data('tweedejaarsproject.csv', m.keys())
