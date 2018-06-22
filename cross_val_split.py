@@ -43,8 +43,10 @@ def create_split(response_data, classification_type, n_buckets):
         bucket_values[lowest_index] += count
         bucket_ids[lowest_index] = \
             np.append(bucket_ids[lowest_index], np.array([song_id]))
-
     return(bucket_ids)
+
 if __name__ == '__main__':
-    response_data = response_data('tweedejaarsproject.csv')
+    from music_feature_dict import music_feature_dict
+    h,m = music_feature_dict('music_features.txt')
+    response_data = response_data('tweedejaarsproject.csv', m.keys())
     create_split(response_data, 'recognition', 10)
