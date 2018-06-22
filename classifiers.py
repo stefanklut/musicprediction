@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
-def cross_val(folds, pca=false):
+def cross_val(folds, pca=False):
     classifiers_list = [RandomForestClassifier, DecisionTreeClassifier, \
                         GradientBoostingClassifier, AdaBoostClassifier, \
                         ExtraTreesClassifier]
@@ -31,7 +31,7 @@ def cross_val(folds, pca=false):
         means = np.mean(measures, axis=1) + np.mean(importance, axis=1)
         stds = np.std(measures, axis=1) + np.std(importance, axis=1)
         mean_eval.append(means)
-        std_eval.append(stds)    
+        std_eval.append(stds)
     return mean_eval, std_eval
 
 def train(func, train_set, test_set, pca=pca):
