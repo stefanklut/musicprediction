@@ -2,6 +2,14 @@
 read_data.py
 
 Implements data class that saves participant data.
+
+Input:
+    filename:
+        The name of the csv file containing the response data
+    good_file_ids:
+        list/iterator containing the ids of the files that will be used
+    dl:
+        delimiter for reading the csv file, standard = ';'
 '''
 import numpy as np
 
