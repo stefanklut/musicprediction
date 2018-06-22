@@ -36,10 +36,11 @@ def create_folds(song_id_split, feat_dict, responses, class_type):
     song_ids = responses.get(class_type, 'sound_cloud_id')
     unique_song_ids = np.unique(song_ids)
     id_location_dict = {sid:np.where(song_ids == sid)[0] for sid in unique_song_ids}
-    bucket_list = [[] for _ in range(len(song_id_split))]
+    bucket_list = [list(np.empty((0,len(feat_dict[song_ids[0]])+1))) for _ in range(len(song_id_split))]
+    
     for i, fold in enumerate(song_id_split):
         for song_id in fold:
-            for response in id_location_dict[song_id]:
-                bucket_list[i].append(np.append(feat_dict[song_id], response_tf[response]))
-
+            r = response_tf[id_location_dict[song_id]]
+            bucket_list[i].append(np.hstack((np.tile(feat_dict[song_id], (len(r), 1)), np.vstack(r))))
+        bucket_list[i] = [l for sid in bucket_list[i] for l in sid]
     return bucket_list
