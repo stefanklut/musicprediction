@@ -1,5 +1,5 @@
 '''
-buckets.py
+cross_val_split.py
 
 creates (n_buckets) buckets of roughly equal size, dividing data into sets where
 two sets never share a song_id.
