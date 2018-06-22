@@ -28,13 +28,13 @@ def cross_val(folds, pca=False):
             measures.append([a, p, r, f1, s])
             importance.append([importance])
 
-        means = np.mean(measures, axis=1) + np.mean(importance, axis=1)
-        stds = np.std(measures, axis=1) + np.std(importance, axis=1)
+        means = np.hstack((np.mean(measures, axis=1),  np.mean(importance, axis=1)))
+        stds = np.hstack((np.std(measures, axis=1), np.std(importance, axis=1)))
         mean_eval.append(means)
         std_eval.append(stds)
     return mean_eval, std_eval
 
-def train(func, train_set, test_set, pca=pca):
+def train(func, train_set, test_set, pca):
     responses_train = train_set[:, -1]
     features_train = np.delete(train_set, -1, axis=1)
     responses_test = test_set[:, -1]
