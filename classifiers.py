@@ -31,8 +31,6 @@ def cross_val(folds, pca=False):
             result = [a, p, r, f1, s] + list(importance)
 
             results.append(result)
-            print(result)
-        print(results)
         classifier_means = np.mean(results, axis=0)
         classifier_stds = np.std(results, axis=0)
         means.append(classifier_means)
