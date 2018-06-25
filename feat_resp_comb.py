@@ -36,6 +36,6 @@ def create_folds(song_id_split, feat_dict, responses, class_type):
 		for song_id in fold:
 			r = response_tf[id_location_dict[song_id]]
 			bucket_list[i].append(np.hstack((np.tile(feat_dict[song_id], (len(r), 1)), np.vstack(r))))
-		bucket_list[i] = np.shuffle(np.asarray([l for sid in bucket_list[i] for l in sid]))
+		bucket_list[i] = np.asarray([l for sid in bucket_list[i] for l in sid])
 		np.random.shuffle(bucket_list[i])
 	return bucket_list

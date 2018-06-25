@@ -9,11 +9,14 @@ from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier, \
+							 ExtraTreesClassifier, RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 
 def cross_val(folds, pca=False):
-    classifiers_list = [RandomForestClassifier, DecisionTreeClassifier, \
-                        GradientBoostingClassifier, AdaBoostClassifier, \
-                        ExtraTreesClassifier]
+    classifiers_list = [RandomForestClassifier] #, DecisionTreeClassifier, \
+    #                     AdaBoostClassifier, ExtraTreesClassifier]
+    #
     means = []
     stds = []
 
@@ -21,15 +24,15 @@ def cross_val(folds, pca=False):
         results = []
         for index, group in enumerate(folds):
             test_set = group
-            train_set = groups[0:index] + groups[index+1:len(groups)]
+            train_set = folds[0:index] + folds[index+1:len(folds)]
             train_set = np.vstack(train_set)
 
             a, p, r, f1, s, importance = train(classifier, train_set, test_set, pca=pca)
-            result = [a, p, r, f1, s] + importance
-            results.append(result)
+            result = [a, p, r, f1, s] + list(importance)
 
-        classifier_means = np.mean(results, axis=1)
-        classifier_stds = np.std(results, axis=1)
+            results.append(result)
+        classifier_means = np.mean(results, axis=0)
+        classifier_stds = np.std(results, axis=0)
         means.append(classifier_means)
         stds.append(classifier_stds)
     return np.array(means), np.array(stds)
@@ -47,7 +50,7 @@ def train(func, train_set, test_set, pca):
     classify_function = func()
     classify_function.fit(features_train, responses_train)
     classify_prediction = classify_function.predict(features_test)
-    feature_importance = enumerate(classify_function.feature_importances_)
+    feature_importance = classify_function.feature_importances_
 
     return(*measures(*confusion_matrix(responses_test, classify_prediction).ravel()),
            feature_importance)
