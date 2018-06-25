@@ -15,8 +15,8 @@ from sklearn.tree import DecisionTreeClassifier
 
 def cross_val(folds, pca=False):
     classifiers_list = [RandomForestClassifier] #, DecisionTreeClassifier, \
-    #                     GradientBoostingClassifier, AdaBoostClassifier, \
-    #                     ExtraTreesClassifier]
+    #                     AdaBoostClassifier, ExtraTreesClassifier]
+    #
     means = []
     stds = []
 
