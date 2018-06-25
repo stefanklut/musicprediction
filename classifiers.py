@@ -14,25 +14,25 @@ def cross_val(folds, pca=False):
     classifiers_list = [RandomForestClassifier, DecisionTreeClassifier, \
                         GradientBoostingClassifier, AdaBoostClassifier, \
                         ExtraTreesClassifier]
+    means = []
+    stds = []
 
     for classifier in classifiers_list:
-        mean_eval = []
-        std_eval = []
-
-        for index, group in enumerate(groups):
+        results = []
+        for index, group in enumerate(folds):
             test_set = group
             train_set = groups[0:index] + groups[index+1:len(groups)]
             train_set = np.vstack(train_set)
 
             a, p, r, f1, s, importance = train(classifier, train_set, test_set, pca=pca)
-            measures.append([a, p, r, f1, s]) #???????????
-            importance.append([importance]) #??????????
+            result = [a, p, r, f1, s] + importance
+            results.append(result)
 
-        means = np.hstack((np.mean(measures, axis=1),  np.mean(importance, axis=1)))
-        stds = np.hstack((np.std(measures, axis=1), np.std(importance, axis=1)))
-        mean_eval.append(means)
-        std_eval.append(stds)
-    return np.array(mean_eval), np.array(std_eval)
+        classifier_means = np.mean(results, axis=1)
+        classifier_stds = np.std(results, axis=1)
+        means.append(classifier_means)
+        stds.append(classifier_stds)
+    return np.array(means), np.array(stds)
 
 def train(func, train_set, test_set, pca):
     responses_train = train_set[:, -1]
