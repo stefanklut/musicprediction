@@ -1,21 +1,20 @@
 '''
-main.py
+Filename: main.py
 
-implements the main function, which combines other functions into a working
-product.
+DESCRIPTION
 
-Input:
-    raw_response_data:
-        The name of the csv file containing the response data
-    raw_feature_data:
-        The name of the csv file containing the music feature data
-    n_folds:
-        the number of folds the data will be divided in when using cross
-        validation
+Project commisioned by:
+    - John Ashley Burgonye (ILLC)
 
-Creates:
-    a csv files recognition_results.csv and verification_results.csv,
-    containing the measures and feature importance for different classifiers.
+By:
+    - Dries Fransen (11041250)
+    - Geerten Rijsdijk (11296720)
+    - Hannah Min (11011580)
+    - Ko Schoemaker (11347503)
+    - Stefan Klut (11331720)
+
+Part of the course "tweedejaarsproject" at the UvA, Bachlor of Science
+Kunstmatige Intelligentie.
 
 '''
 import csv
@@ -27,6 +26,24 @@ from cross_val_split import create_split
 from feat_resp_comb import create_folds
 
 def main(raw_response_data, raw_feature_data, n_folds = 10):
+    '''
+    Implements the main function, which combines other functions into a working
+    product.
+
+    Input:
+        raw_response_data:
+            The name of the csv file containing the response data
+        raw_feature_data:
+            The name of the txt file containing the music feature data
+        n_folds (default 10):
+            The number of folds the data will be divided in when using cross
+            validation
+
+    Output:
+        Csv files recognition_results.csv and verification_results.csv,
+        containing the measures and feature importance for different classifiers
+
+    '''
     header, feat_dict = music_feature_dict(raw_feature_data)
     responses = response_data(raw_response_data, feat_dict.keys())
 

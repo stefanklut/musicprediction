@@ -1,5 +1,5 @@
 '''
-filter_music.py
+Filename: filter_music.py
 
 Reads in names of erroneous files from a file named bad_files.txt append
 moves these files from the 'music' folder to an 'erroneous_music' folder.
