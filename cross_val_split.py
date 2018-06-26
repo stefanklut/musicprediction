@@ -32,9 +32,7 @@ def create_split(response_data, class_type, n_buckets):
     counter_dict = Counter(ids)
 
     bucket_values = np.zeros(n_buckets)
-    bucket_ids = []
-    for i in range(n_buckets):
-        bucket_ids.append(np.array([]))
+    bucket_ids = [np.array([]) for _ in range(n_buckets)]
 
     # Shuffle the keys to make sure the folds are different each time
     keys  = list(counter_dict.keys())
@@ -50,8 +48,12 @@ def create_split(response_data, class_type, n_buckets):
             np.append(bucket_ids[lowest_index], np.array([song_id]))
     return(bucket_ids)
 
+# For test purposes
 if __name__ == '__main__':
     from music_feature_dict import music_feature_dict
+    import time
     h,m = music_feature_dict('music_features.txt')
     response_data = response_data('tweedejaarsproject.csv', m.keys())
+    start = time.time()
     create_split(response_data, 'recognition', 10)
+    print(time.time() - start)
