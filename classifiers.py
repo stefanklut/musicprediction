@@ -27,6 +27,10 @@ def cross_val(folds, pca=False):
 			responses as the last column
 		pca (default False):
 			Boolean whether or not to use pca to reduce the number of features
+
+	Output:
+		Returns both the mean and std for the scoring measures and feature
+		importance in a single array
 	'''
     classifiers_list = [RandomForestClassifier] #, DecisionTreeClassifier, \
     #                     AdaBoostClassifier, ExtraTreesClassifier]
@@ -42,7 +46,7 @@ def cross_val(folds, pca=False):
             train_set = folds[0:index] + folds[index+1:len(folds)]
             train_set = np.vstack(train_set)
 
-			# Get the scoring measures for the classifier
+			# Get the scoring measures and feature importance for the classifier
             a, p, r, f1, s, importance = train(classifier, train_set, test_set, pca=pca)
             result = [a, p, r, f1, s] + list(importance)
 
@@ -138,10 +142,9 @@ def apply_pca(feat_train, feat_test, pca_percentage=.95):
 		Return the transformed feature matrices of the training and test set
 
 	'''
+	# Standerdize the features
     scaler = StandardScaler()
     scaler.fit(feat_train)
-
-	# Standerdize the features
     feat_train = scaler.transform(feat_train)
     feat_test = scaler.transform(feat_test)
 
