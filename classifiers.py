@@ -32,33 +32,32 @@ def cross_val(folds, pca=False):
 		Returns both the mean and std for the scoring measures and feature
 		importance in a single array
 	'''
-    classifiers_list = [RandomForestClassifier] #, DecisionTreeClassifier, \
-    #                     AdaBoostClassifier, ExtraTreesClassifier]
-    #
-    means = []
-    stds = []
+	classifiers_list = [RandomForestClassifier]
+	means = []
+	stds = []
 
-	fold_length = len(folds)
-	enumerated_folds = enumerate(folds)
+	for classifier in classifiers_list:
+		results = []
 
-    for classifier in classifiers_list:
-        results = []
-        for index, test_set in enumerated_folds:
+		if pca:
+			folds = apply_pca(folds)
+
+		for index, test_set in enumerate(folds):
 			# Use the folds to create a train and a test set
-            train_set = folds[0:index] + folds[index+1:fold_length]
-            train_set = np.vstack(train_set)
+			train_set = folds[0:index] + folds[index+1:len(folds)]
+			train_set = np.vstack(train_set)
 
 			# Get the scoring measures and feature importance for the classifier
-            a, p, r, f1, s, importance = train(classifier, train_set, test_set, pca=pca)
-            result = [a, p, r, f1, s] + list(importance)
+			a, p, r, f1, s, importance = train(classifier, train_set, test_set)
+			result = [a, p, r, f1, s] + list(importance)
 
-            results.append(result)
+			results.append(result)
 
-        means.append(np.mean(results, axis=0))
-        stds.append(np.std(results, axis=0))
-    return means, stds
+		means.append(np.mean(results, axis=0))
+		stds.append(np.std(results, axis=0))
+	return means, stds
 
-def train(func, train_set, test_set, pca):
+def train(func, train_set, test_set):
 	'''
 	A function that trains a classifier and returns the scoring measures and the
 	feature importance.
@@ -80,23 +79,19 @@ def train(func, train_set, test_set, pca):
 
 	'''
 	# Split into features and responses
-    responses_train = train_set[:, -1]
-    features_train = np.delete(train_set, -1, axis=1)
-    responses_test = test_set[:, -1]
-    features_test = np.delete(test_set, -1, axis=1)
-
-    # apply PCA
-    if pca:
-        features_train, features_test = apply_pca(features_train, features_test)
+	responses_train = train_set[:, -1]
+	features_train = np.delete(train_set, -1, axis=1)
+	responses_test = test_set[:, -1]
+	features_test = np.delete(test_set, -1, axis=1)
 
 	# Train the function with the training set
-    classify_function = func()
-    classify_function.fit(features_train, responses_train)
-    classify_prediction = classify_function.predict(features_test)
-    feature_importance = classify_function.feature_importances_
+	classify_function = func()
+	classify_function.fit(features_train, responses_train)
+	classify_prediction = classify_function.predict(features_test)
+	feature_importance = classify_function.feature_importances_
 
-    return(*measures(*confusion_matrix(responses_test, classify_prediction).ravel()),
-           feature_importance)
+	return(*measures(*confusion_matrix(responses_test, classify_prediction).ravel()),
+		   feature_importance)
 
 def measures(tn, fp, fn, tp):
 	'''
@@ -118,15 +113,15 @@ def measures(tn, fp, fn, tp):
 		accuracy, precision, recall, f1_score, and specificity.
 
 	'''
-    accuracy = (tn + tp) / (tn + fp + fn + tp)
-    precision = (tp) / (fp + tp)
-    recall = (tp) / (fn + tp)
-    f1_score = 2 * ((precision * recall) / (precision + recall))
-    specificity = (tn) / (tn + fp)
+	accuracy = (tn + tp) / (tn + fp + fn + tp)
+	precision = (tp) / (fp + tp)
+	recall = (tp) / (fn + tp)
+	f1_score = 2 * ((precision * recall) / (precision + recall))
+	specificity = (tn) / (tn + fp)
 
-    return (accuracy, precision, recall, f1_score, specificity)
+	return (accuracy, precision, recall, f1_score, specificity)
 
-def apply_pca(feat_train, feat_test, pca_percentage=.95):
+def apply_pca(folds, pca_percentage=.95):
 	'''
 	Applies PCA to the training and test set to transform and reduce the number
 	of features.
@@ -143,18 +138,24 @@ def apply_pca(feat_train, feat_test, pca_percentage=.95):
 		Return the transformed feature matrices of the training and test set
 
 	'''
+	data = np.vstack(folds)
+	print("data", data.shape)
+	features = np.delete(data, -1, axis=1)
 	# Standerdize the features
-    scaler = StandardScaler()
-    scaler.fit(feat_train)
-    feat_train = scaler.transform(feat_train)
-    feat_test = scaler.transform(feat_test)
+	scaler = StandardScaler()
+	scaler.fit(features)
+	features = scaler.transform(features)
 
 	# Train the PCA using the training set
-    pca = PCA(pca_percentage)
-    pca.fit(feat_train)
+	pca = PCA(pca_percentage)
+	pca.fit(features)
 
-	# Transform the training and test matrices
-    pca_train = pca.transform(feat_train)
-    pca_test = pca.transform(feat_test)
-
-    return pca_train, pca_test
+	pca_folds = []
+	for fold in folds:
+		feat = np.delete(fold, -1, axis=1)
+		components = pca.transform(feat)
+		# transpose
+		resp = np.vstack(fold[:,-1])
+		pca_fold = np.hstack((components, resp))
+		pca_folds.append(pca_fold)
+	return pca_folds
