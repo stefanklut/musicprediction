@@ -37,10 +37,12 @@ def cross_val(folds, pca=False):
     for classifier in classifiers_list:
         results = []
         for index, group in enumerate(folds):
+			# Use the folds to create a train and a test set
             test_set = group
             train_set = folds[0:index] + folds[index+1:len(folds)]
             train_set = np.vstack(train_set)
 
+			# Get the scoring measures for the classifier
             a, p, r, f1, s, importance = train(classifier, train_set, test_set, pca=pca)
             result = [a, p, r, f1, s] + list(importance)
 
@@ -72,6 +74,7 @@ def train(func, train_set, test_set, pca):
 		A tuple with scoring measures and a vector with the feature importance
 
 	'''
+	# Split into features and responses
     responses_train = train_set[:, -1]
     features_train = np.delete(train_set, -1, axis=1)
     responses_test = test_set[:, -1]
@@ -81,6 +84,7 @@ def train(func, train_set, test_set, pca):
     if pca:
         features_train, features_test = apply_pca(features_train, features_test)
 
+	# Train the function with the training set
     classify_function = func()
     classify_function.fit(features_train, responses_train)
     classify_prediction = classify_function.predict(features_test)
