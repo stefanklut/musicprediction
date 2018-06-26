@@ -1,3 +1,9 @@
+%{
+Filename: find_bad_files.m
+
+DESCRIPTION
+%}
+
 function list = find_bad_files(folder_name)
     list = [];
 
@@ -8,7 +14,7 @@ function list = find_bad_files(folder_name)
            mirfeatures(strcat(folder_name, '/' , file.name));
         catch
            list = [list; file.name]
-            
+
     end
 
 end

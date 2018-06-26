@@ -1,13 +1,28 @@
 '''
-txt_to_dict.py
+Filename: txt_to_dict.py
 
-A great discription of the txt_to_dict
+A function to read in the music feature for a txt file that was generated
+by Matlab.
 
 '''
 import numpy as np
 from sklearn.preprocessing import normalize
 
 def music_feature_dict(filename):
+    '''
+    Reads in a txt file with the music feature and returns the names of
+    these feature and the values of these features for each song.
+
+    Input:
+        filename:
+            The filename of the music features file as a string
+
+    Output:
+        A dict containing a list of the names of the features, and a
+        dictionary with song ids as keys and the value are the features
+        of the music in a vector
+
+    '''
     header = ''
     # Get the names of the features we will be extracting
     with open(filename) as f:

@@ -1,26 +1,7 @@
 '''
-benchmark.py
+Filename: benchmark.py
 
-find the benchmark (highest possible accuracy, precision, recall, F1-score
-and specificity) for this classification task.
-
-Input:
-    participant_data:
-        Data object created by read_data.py
-    classification_type:
-        'recognition' or 'verification'
-    threshold:
-        value that indicates whether True or False is chosen, when the
-        percentage of True is > treshold (default = 0.5)
-
-Returns:
-    a 4x5 arrray containing, in order, the accuracy, precision, recall,
-    F1-score and specificity, for (top to bottom):
-        - always choosing True
-        - always choosing False
-        - choosing True or False at random
-        - choosing based on the percentage p of True per song, choosing True if
-        p > threshold
+Returns benchmarks to compair the classifiers with.
 
 '''
 from read_data import *
@@ -29,7 +10,29 @@ from classifiers import measures
 import time
 
 def benchmark(participant_data, classification_type, threshold=0.5):
+    '''
+    Find the benchmark (highest possible accuracy, precision, recall, F1-score
+    and specificity) for this classification task.
 
+    Input:
+        participant_data:
+            Data object created by read_data.py
+        classification_type:
+            'recognition' or 'verification'
+        threshold:
+            value that indicates whether True or False is chosen, when the
+            percentage of True is > treshold (default = 0.5)
+
+    Returns:
+        a 4x5 arrray containing, in order, the accuracy, precision, recall,
+        F1-score and specificity, for (top to bottom):
+            - always choosing True
+            - always choosing False
+            - choosing True or False at random
+            - choosing based on the percentage p of True per song, choosing True
+            if p > threshold
+
+    '''
     start = time.time()
 
     responses = participant_data.get(classification_type, 'is_response_correct')

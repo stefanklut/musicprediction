@@ -4,7 +4,7 @@ Filename: main.py
 DESCRIPTION
 
 Project commisioned by:
-    - John Ashley Burgonye (IILC)
+    - John Ashley Burgonye (ILLC)
 
 By:
     - Dries Fransen (11041250)
@@ -32,21 +32,21 @@ CLASSIFIERS = ['RandomForestClassifier', 'DecisionTreeClassifier', \
 
 def main(raw_response_data, raw_feature_data, n_folds = 10):
     '''
-    implements the main function, which combines other functions into a working
+    Implements the main function, which combines other functions into a working
     product.
 
     Input:
         raw_response_data:
             The name of the csv file containing the response data
         raw_feature_data:
-            The name of the csv file containing the music feature data
-        n_folds:
-            the number of folds the data will be divided in when using cross
+            The name of the txt file containing the music feature data
+        n_folds (default 10):
+            The number of folds the data will be divided in when using cross
             validation
 
-    Creates:
-        a csv files recognition_results.csv and verification_results.csv,
-        containing the measures and feature importance for different classifiers.
+    Output:
+        Csv files recognition_results.csv and verification_results.csv,
+        containing the measures and feature importance for different classifiers
 
     '''
     header, feat_dict = music_feature_dict(raw_feature_data)
