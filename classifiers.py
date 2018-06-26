@@ -38,12 +38,14 @@ def cross_val(folds, pca=False):
     means = []
     stds = []
 
+	fold_length = len(folds)
+	enumerated_folds = enumerate(folds)
+
     for classifier in classifiers_list:
         results = []
-        for index, group in enumerate(folds):
+        for index, test_set in enumerated_folds:
 			# Use the folds to create a train and a test set
-            test_set = group
-            train_set = folds[0:index] + folds[index+1:len(folds)]
+            train_set = folds[0:index] + folds[index+1:fold_length]
             train_set = np.vstack(train_set)
 
 			# Get the scoring measures and feature importance for the classifier
@@ -51,11 +53,10 @@ def cross_val(folds, pca=False):
             result = [a, p, r, f1, s] + list(importance)
 
             results.append(result)
-        classifier_means = np.mean(results, axis=0)
-        classifier_stds = np.std(results, axis=0)
-        means.append(classifier_means)
-        stds.append(classifier_stds)
-    return np.array(means), np.array(stds)
+
+        means.append(np.mean(results, axis=0))
+        stds.append(np.std(results, axis=0))
+    return means, stds
 
 def train(func, train_set, test_set, pca):
 	'''
