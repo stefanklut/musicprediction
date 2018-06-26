@@ -28,6 +28,7 @@ class response_data:
         self.data_file = np.array([line for line in self.data_file \
                                     if int(line[-1]) in good_file_ids])
         self.__split_rec_ver()
+        # Specifies the type the data should be interpreted as
         self.types = {'participant': 'int', 'song': 'int',
                       'start_point': 'str', 'recognition_time': 'float',
                       'is_response_correct': 'bool', 'verification_time': 'str',
@@ -37,10 +38,12 @@ class response_data:
 
     def __split_rec_ver(self):
         ''' Function splits full dataset in recognition and verification sets. '''
-        # Ko wat doe je hier allemaal ?????????????
+        # Creating verification data set
         self.verification = self.data_file[self.data_file[:, 4] != 'NA']
+        # Making TRUE and FALSE interpretable in python by changing to 1 and 0
         self.verification[self.verification[:, 4] == 'TRUE', 4] = 1
         self.verification[self.verification[:, 4] == 'FALSE', 4] = 0
+        # Creating recognition data set (with 1 and 0 as TRUE and FALSE)
         rec_false = self.data_file[self.data_file[:, 4] == 'NA']
         rec_false[:, 4] = 0
         rec_true = np.copy(self.verification)
@@ -65,6 +68,7 @@ class response_data:
             # Get index from header
             [[var_index]] = np.where(self.header == var_name)
             var_type = self.types[var_name]
+            # retrieving correct data from a specific data set and setting type
             if class_type == 'recognition':
                 return self.recognition[:, var_index].astype(var_type)
             elif class_type == 'verification':
@@ -75,6 +79,7 @@ class response_data:
         ''' When printing the class it is represented as the full data file. '''
         return(str(self.data_file))
 
+# For testing purposes
 if __name__ == '__main__':
     from music_feature_dict import *
 
