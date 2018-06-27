@@ -13,7 +13,8 @@ class response_data:
 
         Input:
             filename:
-                The name of the csv file as a string containing the response data
+                The name of the csv file containing the response data as a
+                string
             good_file_ids:
                 List/iterator containing the ids of the files that will be used
             dl (default ';'):
@@ -37,7 +38,8 @@ class response_data:
                       'sound_cloud_id': 'int'}
 
     def __split_rec_ver(self):
-        ''' Function splits full dataset in recognition and verification sets. '''
+        ''' Function splits full dataset in recognition and verification sets.
+        '''
         # Creating verification data set
         self.verification = self.data_file[self.data_file[:, 4] != 'NA']
         # Making TRUE and FALSE interpretable in python by changing to 1 and 0
