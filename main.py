@@ -65,7 +65,7 @@ def main(raw_response_data, raw_feature_data, n_folds = 10):
 		f.write('benchmarks;\n')
 		f.write(';Accuracy;Precision;Recall;F1-score;Specificity;\n')
 		for i, t in enumerate(['All True;', 'All False;', 'Random True/False;',\
-			'Threshold;']):
+			'Baseline;']):
 			f.write(t)
 			writer.writerow(np.round(benchmark_values[i], decimals = 5))
 		f.write('\n')
