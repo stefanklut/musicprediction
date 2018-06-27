@@ -32,7 +32,8 @@ def cross_val(folds, pca=False):
 		Returns both the mean and std for the scoring measures and feature
 		importance in a single array
 	'''
-	classifiers_list = [RandomForestClassifier]
+	classifiers_list = [RandomForestClassifier, DecisionTreeClassifier, \
+				 AdaBoostClassifier, ExtraTreesClassifier]
 	means = []
 	stds = []
 
@@ -114,9 +115,15 @@ def measures(tn, fp, fn, tp):
 
 	'''
 	accuracy = (tn + tp) / (tn + fp + fn + tp)
-	precision = (tp) / (fp + tp)
+	if (fp + tp) == 0:
+		precision = float('NaN')
+	else:
+		precision = (tp) / (fp + tp)
 	recall = (tp) / (fn + tp)
-	f1_score = 2 * ((precision * recall) / (precision + recall))
+	if precision == float('NaN'):
+		f1_score = float('NaN')
+	else:
+		f1_score = 2 * ((precision * recall) / (precision + recall))
 	specificity = (tn) / (tn + fp)
 
 	return (accuracy, precision, recall, f1_score, specificity)
@@ -159,3 +166,6 @@ def apply_pca(folds, pca_percentage=.95):
 		pca_fold = np.hstack((components, resp))
 		pca_folds.append(pca_fold)
 	return pca_folds
+
+if __name__ == '__main__':
+	print(measures(5,0,6,0))
