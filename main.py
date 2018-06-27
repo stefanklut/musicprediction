@@ -81,7 +81,8 @@ def main(raw_response_data, raw_feature_data, n_folds = 10):
 
 		# Write non-PCA results to csv
 		f.write('classifiers without PCA;Measures;;;;;feature importance\n')
-		f.write(';accuracy;precision;recall;F1-score;specificity;1;2;3;4;5;6;7;8;9;10\n')
+		f.write(';accuracy;precision;recall;F1-score;\
+			specificity;1;2;3;4;5;6;7;8;9;10\n')
 		for i in range(len(mean_eval)):
 
 			f.write(CLASSIFIERS[i] + ';')
@@ -93,14 +94,18 @@ def main(raw_response_data, raw_feature_data, n_folds = 10):
 			feature_values = list(zip(header, mean_features, std_features))
 			feature_values.sort(key=lambda x: x[1], reverse = True)
 			for i in range(5):
-				f.write(str(measure_values[i][0]) + ' (' + str(measure_values[i][1]) + ');')
+				f.write(str(measure_values[i][0]) + ' (' \
+					+ str(measure_values[i][1]) + ');')
 			for i in range(10):
-				f.write(str(feature_values[i][0]) + ': ' + str(feature_values[i][1]) + ' (' + str(feature_values[i][2]) + ');')
+				f.write(str(feature_values[i][0]) + ': ' + \
+					str(feature_values[i][1]) + ' (' + \
+						str(feature_values[i][2]) + ');')
 			f.write('\n')
 
 		# # Write PCA results to csv
 		# f.write('classifiers with PCA;Measures;;;;;feature importance\n')
-		# f.write(';accuracy;precision;recall;F1-score;specificity;1;2;3;4;5;6;7;8;9;10\n')
+		# f.write(';accuracy;precision;recall;F1-score;\
+		#	specificity;1;2;3;4;5;6;7;8;9;10\n')
 		# for i in range(len(mean_eval_pca)):
 		#
 		# 	f.write(CLASSIFIERS[i] + ';')
@@ -114,9 +119,11 @@ def main(raw_response_data, raw_feature_data, n_folds = 10):
 		# 	feature_values.sort(key=lambda x: x[1], reverse = True)
 		#
 		# 	for i in range(5):
-		# 		f.write(str(measure_values[i][0]) + ' (' + str(measure_values[i][1]) + ');')
+		# 		f.write(str(measure_values[i][0]) + ' (' + \
+		#	str(measure_values[i][1]) + ');')
 		# 	for i in range(10):
-		# 		f.write(str(feature_values[i][0]) + ': ' + str(feature_values[i][1]) + ' (' + str(feature_values[i][2]) + ');')
+		# 		f.write(str(feature_values[i][0]) + ': ' +\
+		#	str(feature_values[i][1]) + ' (' + str(feature_values[i][2]) + ');')
 		# 	f.write('\n')
 		#
 		# f.close()

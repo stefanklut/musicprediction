@@ -1,8 +1,8 @@
 '''
 Filename: cross_val_split.py
 
-A function to create folds for cross validation, the folds cannot have any overlapping
-song ids. The number of folds is variable.
+A function to create folds for cross validation, the folds cannot have any
+overlapping song ids. The number of folds is variable.
 
 '''
 import numpy as np
@@ -12,8 +12,8 @@ import random
 
 def create_split(response_data, class_type, n_buckets):
     '''
-    Creates (n_buckets) buckets of roughly equal size, dividing data into sets where
-    two sets never share a song_id.
+    Creates (n_buckets) buckets of roughly equal size, dividing data into sets
+    where two sets never share a song_id.
 
     Input:
         response_data:
