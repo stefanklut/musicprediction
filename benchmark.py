@@ -72,6 +72,7 @@ def benchmark(participant_data, classification_type, threshold=0.5):
     threshold_results = \
         np.array([*measures(*confusion_matrix(responses, th_vector).ravel())])
 
-    results = np.array([true_results, false_results, random_results, threshold_results])
+    results = np.array([true_results, false_results, random_results, \
+        threshold_results])
 
     return results

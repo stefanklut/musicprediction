@@ -91,8 +91,8 @@ def train(func, train_set, test_set):
 	classify_prediction = classify_function.predict(features_test)
 	feature_importance = classify_function.feature_importances_
 
-	return(*measures(*confusion_matrix(responses_test, classify_prediction).ravel()),
-		   feature_importance)
+	return(*measures(*confusion_matrix(responses_test, \
+		classify_prediction).ravel()), feature_importance)
 
 def measures(tn, fp, fn, tp):
 	'''
