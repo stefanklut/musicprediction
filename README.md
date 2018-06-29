@@ -2,12 +2,12 @@
 Predicting music catchiness with machine learning by mimicking human behaviour.
 
 ## Prerequisites
--[Matlab version 7 or higher](https://www.mathworks.com/products/matlab.html "Matlab")
--[The MatLab MIRtoolbox](https://www.jyu.fi/hytk/fi/laitokset/mutku/en/research/materials/mirtoolbox "MIRtoolbox")
--[Python version 3.6](https://www.python.org/downloads/ "Python")
--Numpy (install with pip)
--SciPy (install with pip)
--scikit-learn (install with pip)
+- [Matlab version 7 or higher](https://www.mathworks.com/products/matlab.html "Matlab")
+- [The MatLab MIRtoolbox](https://www.jyu.fi/hytk/fi/laitokset/mutku/en/research/materials/mirtoolbox "MIRtoolbox")
+- [Python version 3.6](https://www.python.org/downloads/ "Python")
+- Numpy (install with pip)
+- SciPy (install with pip)
+- scikit-learn (install with pip)
 
 ## Running the program
 Firstly, to remove any unprocessable files, run the following in MatLab:
