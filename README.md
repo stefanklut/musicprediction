@@ -38,4 +38,4 @@ python3 main.py <i>participant_data.csv</i> music_features.txt <i>n_folds</i>
 
 ## Acknowledgements
 - John Ashley Burgoyne (ILLC)
-- Victor Milewski
+- Victor Milewski (TA)
