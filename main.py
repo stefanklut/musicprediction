@@ -62,7 +62,7 @@ def main(raw_response_data, raw_feature_data, n_folds = 10):
 
 		# Compute benchmark values and write them to CSV.
 		benchmark_values = benchmark(responses, class_type)
-		f.write('benchmarks;\n')
+		f.write('Benchmarks;\n')
 		f.write(';Accuracy;Precision;Recall;F1-score;Specificity;\n')
 		for i, t in enumerate(['All True;', 'All False;', 'Random True/False;',\
 			'Baseline;']):
@@ -82,9 +82,9 @@ def main(raw_response_data, raw_feature_data, n_folds = 10):
 		print('writing to csv')
 
 		# Write non-PCA results to csv
-		f.write('classifiers without PCA;Measures;;;;;feature importance\n')
-		f.write(';accuracy;precision;recall;F1-score;\
-			specificity;')
+		f.write('Classifiers without PCA;Measures;;;;;feature importance\n')
+		f.write(';Accuracy;Precision;Recall;F1-score;\
+			Specificity;')
 		for i in range(342):
 			f.write(str(i+1) + ';')
 		f.write('\n')
@@ -109,9 +109,9 @@ def main(raw_response_data, raw_feature_data, n_folds = 10):
 		f.write('\n')
 
 		# Write PCA results to csv
-		f.write('classifiers with PCA;Measures\n')
-		f.write(';accuracy;precision;recall;F1-score;\
-			specificity\n')
+		f.write('Classifiers with PCA;Measures\n')
+		f.write(';Accuracy;Precision;Recall;F1-score;\
+			Specificity\n')
 		for i in range(len(mean_eval_pca)):
 
 			f.write(CLASSIFIERS[i] + ';')
