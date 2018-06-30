@@ -33,6 +33,7 @@ def music_feature_dict(filename):
     song_ids = textfile_as_array[:,0].astype(int)
     # Remove any feature column that contains a NaN; this removes 35 columns
     useful_columns = ~np.any(np.isnan(textfile_as_array), axis=0)
+    # Song ids are not useful
     useful_columns[0] = False
     header = [name for i, name in enumerate(header) if useful_columns[i]]
     not_normalized = textfile_as_array[:, useful_columns]
