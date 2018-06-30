@@ -1,7 +1,7 @@
 '''
 Filename: main.py
 
-DESCRIPTION
+Predicting music catchiness with machine learning by mimicking human behaviour.
 
 Project commisioned by:
 	- John Ashley Burgoyne (ILLC)
