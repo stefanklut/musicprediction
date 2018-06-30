@@ -32,6 +32,7 @@ def cross_val(folds, pca=False):
 		Returns both the mean and std for the scoring measures and feature
 		importance in a single array
 	'''
+
 	classifiers_list = [RandomForestClassifier, DecisionTreeClassifier, \
 				 AdaBoostClassifier, ExtraTreesClassifier]
 	means = []
@@ -146,7 +147,6 @@ def apply_pca(folds, pca_percentage=.95):
 
 	'''
 	data = np.vstack(folds)
-	print("data", data.shape)
 	features = np.delete(data, -1, axis=1)
 	# Standerdize the features
 	scaler = StandardScaler()
