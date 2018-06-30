@@ -85,7 +85,7 @@ def main(raw_response_data, raw_feature_data, n_folds = 10):
 		f.write('Classifiers without PCA;Measures;;;;;feature importance\n')
 		f.write(';Accuracy;Precision;Recall;F1-score;\
 			Specificity;')
-		for i in range(342):
+		for i in range(len(header)):
 			f.write(str(i+1) + ';')
 		f.write('\n')
 		for i in range(len(mean_eval)):
