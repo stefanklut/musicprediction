@@ -107,3 +107,5 @@ venv.bak/
 # wav
 music/
 *.wav
+visual_tree
+fruit_classifier.txt
